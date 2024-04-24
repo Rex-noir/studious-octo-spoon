@@ -9,6 +9,10 @@ body {
 }
 #app {
   transition: margin-left 0.5s;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  width: 100vw;
+  height: 100vh;
 }
 /* nav-header */
 .nav-container {
