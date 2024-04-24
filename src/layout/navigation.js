@@ -1,10 +1,11 @@
 import openIcon from "/src/img/nav-menu.svg";
 import closeIcon from "/src/img/close-button.svg";
 
+const nav_menu = document.querySelector(".nav-menu");
 const nav_button = document.querySelector(".nav-menu-icon");
 const nav_logo = document.querySelector(".nav-logo");
 let open = false;
-nav_button.addEventListener("click", () => {
+nav_menu.addEventListener("click", () => {
   open = !open;
   if (open) {
     nav_button.setAttribute("src", closeIcon);
