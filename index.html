@@ -7,7 +7,37 @@
     <title>To Do List</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div class="nav-container">
+        <nav>
+          <div class="nav-item nav-menu nav-button">
+            <img
+              src="src/img/nav-menu.svg"
+              class="nav-menu-icon"
+              width="36px"
+              alt="Menu button"
+            />
+          </div>
+          <div class="nav-item nav-logo">
+            <span id="nav-title">Welcome!</span>
+          </div>
+          <div class="nav-item nav-preferences nav-button">
+            <img src="src/img/add-task.svg" width="36px" alt="Preferences" />
+          </div>
+        </nav>
+      </div>
+      <div class="side-nav-container">
+        <div class="profile-container">
+          <img src="src/img/pic-profile.svg" width="80%" alt="profilepicture" />
+          <span class="profile-username">Lithos</span>
+        </div>
+        <div class="side-todo-list-container">
+          <div class="side-task-lists">
+            <ul class="task-lists"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/main.js"></script>
   </body>
 </html>
