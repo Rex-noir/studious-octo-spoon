@@ -12,17 +12,20 @@ class Element {
     return this;
   }
   setClass(className) {
-    if (className) this.element.classList.add(className);
-    else throw new Error("invalid class name");
+    if (className) {
+      className.forEach((name) => {
+        this.element.classList.add(name);
+      });
+    } else throw new Error("invalid class name");
     return this;
   }
   build() {
     return this.element;
   }
 }
-export function createElement(tag, className, id) {
+export function createElement(tag, className = [], id) {
   const element = Element.create(tag);
-  if (className) element.setClass(className);
+  if (className.length) element.setClass(className);
   if (id) element.setId(id);
   return element.build();
 }
