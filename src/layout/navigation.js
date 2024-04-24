@@ -2,14 +2,17 @@ import openIcon from "/src/img/nav-menu.svg";
 import closeIcon from "/src/img/close-button.svg";
 
 const nav_button = document.querySelector(".nav-menu-icon");
+const nav_logo = document.querySelector(".nav-logo");
 let open = false;
 nav_button.addEventListener("click", () => {
   open = !open;
   if (open) {
     nav_button.setAttribute("src", closeIcon);
+    nav_logo.style.display = "none";
     openNav();
   } else {
     nav_button.setAttribute("src", openIcon);
+    nav_logo.style.display = "flex";
     closeNav();
   }
 });
