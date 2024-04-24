@@ -1,2 +1,3 @@
 # studious-octo-spoon
-This is a project of mine.
+
+A simple todo list manager made using javscript
