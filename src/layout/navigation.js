@@ -20,12 +20,12 @@ nav_menu.addEventListener("click", () => {
   }
 });
 
-function openNav() {
+export function openNav() {
   document.querySelector(".side-nav-container").style.width = "240px";
   document.querySelector("#app").style.marginLeft = "250px";
 }
 
-function closeNav() {
+export function closeNav() {
   document.querySelector(".side-nav-container").style.width = "0";
   document.querySelector("#app").style.marginLeft = "0";
 }
