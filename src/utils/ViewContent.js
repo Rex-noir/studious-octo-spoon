@@ -1,5 +1,5 @@
 import { createElement } from "./DOM-manipulator";
-import { Data } from "./Data Manger";
+import { Data, Storage } from "./Data Manger";
 import { Log } from "./LogMessages";
 import "/src/styles/components.css";
 import { format } from "date-fns";
@@ -12,12 +12,16 @@ let inputNote;
 let navTitle = document.querySelector("#nav-title");
 let messages = new Log(navTitle);
 let keydownEventListener;
+let OPTION;
+let oldTitle;
+
 //View
 export function closedState(container) {
   container.innerHTML = messages.emptyView;
 }
 export function View(option) {
   const wrapper = option.container;
+  OPTION = option;
   wrapper.innerHTML = "";
   const container = createElement("div", ["project-container"]);
   //title and action container
@@ -61,10 +65,13 @@ export function View(option) {
   } else {
     saved = true;
     updateResults(option);
+
     let editBtn = document.querySelector(".edit-btn");
     editBtn.style.display = "true";
-    disableAllInputs();
     editBtn.addEventListener("click", enableAllInputs);
+
+    oldTitle = inputTitle.value;
+    disableAllInputs();
   }
 }
 function updateResults(option) {
@@ -157,6 +164,7 @@ function saveEventListener(e) {
       //formatting date
       let date = format(new Date(inputDate.value), "MMM do yyyy hh:mm a");
       //saving logic
+      if (OPTION.option === "view") Storage.update(oldTitle);
       let data = new Data(inputTitle.value)
         .setDate(date, inputDate.value)
         .setNote(inputNote.value)
