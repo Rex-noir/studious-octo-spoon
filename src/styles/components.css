@@ -1,0 +1,48 @@
+/* Buttons */
+button {
+  border-radius: 10px;
+  padding: 10px;
+  height: 40px;
+  cursor: pointer;
+  align-self: center;
+  transition: background-color 0.4s ease-in-out; /* Animate background color over 0.5s with ease-in-out easing */
+}
+.close-btn {
+  background-color: rgba(255, 0, 0, 0.578);
+  color: aliceblue;
+}
+.edit-btn {
+  background-color: rgb(83, 162, 253);
+  color: aliceblue;
+}
+
+button:hover {
+  background-color: aqua;
+  color: black;
+}
+button:active {
+  transform: translateY(3px);
+}
+
+/* Input */
+input,
+textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+}
+textarea {
+  resize: none;
+}
+textarea:focus {
+  outline: none;
+  border-left: solid green;
+}
+input:focus {
+  outline: none;
+  border-left: rgb(0, 13, 255) solid;
+}
+.input-note {
+  height: 100%;
+  text-align: justify;
+}
