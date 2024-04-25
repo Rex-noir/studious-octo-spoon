@@ -164,7 +164,7 @@ function saveEventListener(e) {
       //formatting date
       let date = format(new Date(inputDate.value), "MMM do yyyy hh:mm a");
       //saving logic
-      if (OPTION.option === "view") Storage.update(oldTitle);
+      if (OPTION.option === "view") Storage.removeData(oldTitle);
       let data = new Data(inputTitle.value)
         .setDate(date, inputDate.value)
         .setNote(inputNote.value)
