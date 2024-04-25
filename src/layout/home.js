@@ -5,6 +5,7 @@ import deleteBUTTONIcon from "/src/img/delete-button.svg";
 import { Storage } from "../utils/Data Manger";
 import { Log } from "../utils/LogMessages";
 import { ms, te } from "date-fns/locale";
+import { closeNav } from "./navigation";
 
 const container = createElement("div", ["home", "wrapper"]);
 const taskLists = document.querySelector(".task-lists");
@@ -37,6 +38,7 @@ export function fillTheNav() {
 
     li.textContent = key;
     li.addEventListener("click", (e) => {
+      closeNav();
       new View({ option: "view", container: container, key: key });
     });
 
