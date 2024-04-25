@@ -144,8 +144,8 @@ function saveEventListener(e) {
         .setDate(date)
         .setNote(inputNote.value)
         .build();
-      // localStorage.setItem(inputTitle.value, data);
-      // console.log(localStorage.getItem(inputTitle.value));
+      localStorage.setItem(inputTitle.value, data);
+      console.log(localStorage.getItem(inputTitle.value));
       saved = true;
       navTitle.textContent = "Saved";
       navTitle.style.color = "green";
