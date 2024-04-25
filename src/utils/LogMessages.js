@@ -9,6 +9,7 @@ export class Log {
     this.emptyViewShort = "No view";
     this.howToSave = "Use Ctrl+S to save!";
     this.saved = "Saved";
+    this.EmptyList = "Wow, such an empty list!";
   }
   getMessages() {
     return this;
