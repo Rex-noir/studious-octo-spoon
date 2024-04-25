@@ -1,3 +1,4 @@
+import { fillTheNav } from "../layout/home";
 import { createElement } from "./DOM-manipulator";
 import { Data, Storage } from "./Data Manger";
 import { Log } from "./LogMessages";
@@ -56,6 +57,7 @@ export function View(option) {
   document.querySelector(".close-btn").addEventListener("click", (e) => {
     document.removeEventListener("keydown", keydownEventListener);
     closeButtonClicked(wrapper);
+    fillTheNav();
   });
   //checking methods
   const method = option.option;
