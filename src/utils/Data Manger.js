@@ -4,8 +4,9 @@ export class Data {
     this.id = title.slice(0, 2);
     this.watermark = "json";
   }
-  setDate(date) {
+  setDate(date, rawDate) {
     this.date = date;
+    this.rawDate = rawDate;
     return this;
   }
   setNote(note) {
