@@ -61,8 +61,10 @@ export function View(option) {
   } else {
     saved = true;
     updateResults(option);
-    document.querySelector(".edit-btn").style.display = "true";
+    let editBtn = document.querySelector(".edit-btn");
+    editBtn.style.display = "true";
     disableAllInputs();
+    editBtn.addEventListener("click", enableAllInputs);
   }
 }
 function updateResults(option) {
@@ -78,9 +80,9 @@ function disableAllInputs() {
   document.querySelector("#input-date").setAttribute("disabled", "true");
 }
 function enableAllInputs() {
-  document.querySelector("input").disabled = "false";
-  document.querySelector("textarea").disabled = "false";
-  document.querySelector("#input-date").setAttribute("disabled", "false");
+  document.querySelector("input").removeAttribute("disabled");
+  document.querySelector("textarea").removeAttribute("disabled");
+  document.querySelector("#input-date").removeAttribute("disabled");
 }
 //title
 function title() {
