@@ -30,7 +30,7 @@ export function View(option) {
   container.appendChild(Note());
   wrapper.appendChild(container);
   //saving eventListener
-  navTitle.textContent = "Not saved";
+  messages.setMessage(messages.notSave).type("warning");
   document.addEventListener("keydown", (e) => {
     saveEventListener(e);
   });
@@ -126,7 +126,7 @@ function Note() {
 //close button
 function closeButtonClicked(container) {
   if (!saved && checkInputs()) {
-    let condition = confirm("Changes will not be saved");
+    let condition = confirm("Changes will not be saved. Are you sure?");
     if (condition) closedState(container);
   } else {
     messages.setMessage(messages.emptyViewShort);
@@ -145,13 +145,11 @@ function saveEventListener(e) {
         .setNote(inputNote.value)
         .build();
       localStorage.setItem(inputTitle.value, data);
-      console.log(localStorage.getItem(inputTitle.value));
+      //updating some values
       saved = true;
-      navTitle.textContent = "Saved";
-      navTitle.style.color = "green";
+      messages.setMessage(messages.saved).type("success");
     } else {
-      navTitle.textContent = "Title & DeadLine must not be empty!";
-      navTitle.style.color = "red";
+      messages.setMessage(messages.invalidInput).type("warning");
       e.preventDefault();
       saved = false;
     }
