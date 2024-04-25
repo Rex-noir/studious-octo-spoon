@@ -2,6 +2,7 @@ import { createElement } from "../utils/DOM-manipulator";
 import { View, closedState } from "../utils/ViewContent";
 import "/src/styles/layout.css";
 import deleteBUTTONIcon from "/src/img/delete-button.svg";
+import { Storage } from "../utils/Data Manger";
 
 const container = createElement("div", ["home", "wrapper"]);
 const taskLists = document.querySelector(".task-lists");
@@ -33,12 +34,18 @@ export function fillTheNav() {
     });
 
     const DeleteBTN = createElement("img", ["item-delete-button"]);
-    DeleteBTN.textContent = "DELETE";
     DeleteBTN.src = deleteBUTTONIcon;
     DeleteBTN.style.width = "24px";
+    DeleteBTN.addEventListener("click", (e) => {
+      deleteItem(li.textContent);
+      fillTheNav();
+    });
 
     listItemContainer.appendChild(li);
     listItemContainer.appendChild(DeleteBTN);
     taskLists.appendChild(listItemContainer);
   }
+}
+function deleteItem(key) {
+  Storage.removeData(key);
 }
