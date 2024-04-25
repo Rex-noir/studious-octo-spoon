@@ -7,6 +7,7 @@ export class Log {
     this.invalidInput = "Title & DeadLine must not be empty!";
     this.titleLimit = "Title character limit reached!";
     this.emptyViewShort = "No view";
+    this.saved = "Saved";
   }
   getMessages() {
     return this;
@@ -21,7 +22,7 @@ export class Log {
         this.logElement.style.color = "red";
         break;
       case "warning":
-        this.logElement.style.color = "yellow";
+        this.logElement.style.color = "blue";
         break;
       case "success":
         this.logElement.style.color = "green";
