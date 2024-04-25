@@ -5,11 +5,13 @@ import "/src/styles/components.css";
 import { format } from "date-fns";
 
 let saved = false;
+let formOpened = false;
 let inputTitle;
 let inputDate;
 let inputNote;
 let navTitle = document.querySelector("#nav-title");
 let messages = new Log(navTitle);
+let keydownEventListener;
 //View
 export function closedState(container) {
   container.innerHTML = messages.emptyView;
@@ -31,9 +33,12 @@ export function View(option) {
   wrapper.appendChild(container);
   //saving eventListener
   messages.setMessage(messages.howToSave).type("warning");
-  document.addEventListener("keydown", (e) => {
-    saveEventListener(e);
-  });
+  if (!formOpened) {
+    keydownEventListener = (e) => {
+      saveEventListener(e);
+    };
+    document.addEventListener("keydown", keydownEventListener);
+  }
   //for updating keys with the navtitle
   inputTitle.addEventListener("keyup", (e) => {
     //check for the title if it is a log message
@@ -45,6 +50,7 @@ export function View(option) {
   });
   //Buttons event Listenere
   document.querySelector(".close-btn").addEventListener("click", (e) => {
+    document.removeEventListener("keydown", keydownEventListener);
     closeButtonClicked(wrapper);
   });
   //checking methods
