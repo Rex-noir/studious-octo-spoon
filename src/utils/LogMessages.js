@@ -7,6 +7,7 @@ export class Log {
     this.invalidInput = "Title & DeadLine must not be empty!";
     this.titleLimit = "Title character limit reached!";
     this.emptyViewShort = "No view";
+    this.howToSave = "Use Ctrl+S to save!";
     this.saved = "Saved";
   }
   getMessages() {
