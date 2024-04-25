@@ -30,10 +30,11 @@ export function View(option) {
   container.appendChild(Note());
   wrapper.appendChild(container);
   //saving eventListener
-  messages.setMessage(messages.notSave).type("warning");
+  messages.setMessage(messages.howToSave).type("warning");
   document.addEventListener("keydown", (e) => {
     saveEventListener(e);
   });
+  //for updating keys with the navtitle
   inputTitle.addEventListener("keyup", (e) => {
     //check for the title if it is a log message
     if (isLogTitle(navTitle.textContent)) {
@@ -50,6 +51,7 @@ export function View(option) {
   const method = option.option;
   if (method == "add") {
     document.querySelector(".input-title").focus();
+    document.querySelector(".edit-btn").style.display = "none";
   }
   //if method is to view then check it
   else {
