@@ -52,3 +52,8 @@
   flex-direction: column;
   gap: 8px;
 }
+/* List Items */
+.list-item-container {
+  display: flex;
+  justify-content: space-between;
+}
