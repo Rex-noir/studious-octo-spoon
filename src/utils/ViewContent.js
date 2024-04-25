@@ -58,23 +58,30 @@ export function View(option) {
   if (method == "add") {
     document.querySelector(".input-title").focus();
     document.querySelector(".edit-btn").style.display = "none";
-  }
-  //if method is to view then check it
-  else {
+  } else {
     saved = true;
-    if (wrapper.childNodes.length > 0) {
-      for (const child of wrapper.childNodes) {
-        if (
-          child.nodeType === Node.ELEMENT_NODE &&
-          child.matches("input, textarea")
-        ) {
-          child.disabled = true;
-        }
-      }
-    }
+    updateResults(option);
+    document.querySelector(".edit-btn").style.display = "true";
+    disableAllInputs();
   }
 }
-
+function updateResults(option) {
+  let key = option.key;
+  let content = JSON.parse(localStorage.getItem(key));
+  inputTitle.value = content.title;
+  inputDate.setAttribute("value", content.rawDate);
+  inputNote.textContent = content.note;
+}
+function disableAllInputs() {
+  document.querySelector("input").disabled = "true";
+  document.querySelector("textarea").disabled = "true";
+  document.querySelector("#input-date").setAttribute("disabled", "true");
+}
+function enableAllInputs() {
+  document.querySelector("input").disabled = "false";
+  document.querySelector("textarea").disabled = "false";
+  document.querySelector("#input-date").setAttribute("disabled", "false");
+}
 //title
 function title() {
   const container = createElement("div", [
@@ -149,7 +156,7 @@ function saveEventListener(e) {
       let date = format(new Date(inputDate.value), "MMM do yyyy hh:mm a");
       //saving logic
       let data = new Data(inputTitle.value)
-        .setDate(date)
+        .setDate(date, inputDate.value)
         .setNote(inputNote.value)
         .build();
       localStorage.setItem(inputTitle.value, data);
