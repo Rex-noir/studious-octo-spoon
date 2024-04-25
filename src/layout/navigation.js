@@ -1,9 +1,11 @@
 import openIcon from "/src/img/nav-menu.svg";
 import closeIcon from "/src/img/close-button.svg";
+import { getView } from "./home";
 
 const nav_menu = document.querySelector(".nav-menu");
 const nav_button = document.querySelector(".nav-menu-icon");
 const nav_logo = document.querySelector(".nav-logo");
+
 let open = false;
 nav_menu.addEventListener("click", () => {
   open = !open;
@@ -27,3 +29,6 @@ function closeNav() {
   document.querySelector(".side-nav-container").style.width = "0";
   document.querySelector("#app").style.marginLeft = "0";
 }
+//new button
+const nav_new = document.querySelector(".nav-new");
+nav_new.addEventListener("click", (e) => getView());
