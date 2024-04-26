@@ -6,7 +6,6 @@ import "/src/styles/components.css";
 import { v4 as uuidv4 } from "uuid";
 
 let saved = false;
-let formOpened = true;
 let inputTitle;
 let inputDate;
 let inputNote;
@@ -42,7 +41,6 @@ export function View(option) {
   document.querySelector(".close-btn").addEventListener("click", (e) => {
     document.removeEventListener("keydown", keydownEventListener);
     closeButtonClicked(wrapper);
-    formOpened = false;
   });
   //checking methods
   const method = option.option;
@@ -95,7 +93,6 @@ function enableAllInputs() {
   document.querySelector("input").removeAttribute("disabled");
   document.querySelector("textarea").removeAttribute("disabled");
   document.querySelector("#input-date").removeAttribute("disabled");
-  formOpened = true;
   enableSaving();
 }
 //title
@@ -180,7 +177,6 @@ function saveEventListener(e) {
       //updating some values
       saved = true;
       messages.setMessage(messages.saved).type("success");
-      formOpened = false;
       document.querySelector(".edit-btn").style.display = "none";
       fillTheNav();
     } else {
