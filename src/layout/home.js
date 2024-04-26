@@ -50,7 +50,6 @@ export function fillTheNav() {
       e.stopPropagation(); // Stop propagation to container
       deleteItem(data);
       fillTheNav();
-      closeNav();
       closedState(container);
     });
 
