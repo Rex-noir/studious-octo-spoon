@@ -3,10 +3,9 @@ import { createElement } from "./DOM-manipulator";
 import { Data, Storage } from "./Data Manger";
 import { Log } from "./LogMessages";
 import "/src/styles/components.css";
-import { format } from "date-fns";
 
 let saved = false;
-let formOpened = false;
+let formOpened = true;
 let inputTitle;
 let inputDate;
 let inputNote;
@@ -28,8 +27,7 @@ export function View(option) {
   //title and action container
   const containerTA = createElement("div", ["container", "ta-container"]);
   containerTA.appendChild(title());
-
-  //date-time container
+  enableSaving();
   //main wrapper
   container.appendChild(action());
   container.appendChild(containerTA);
@@ -37,37 +35,26 @@ export function View(option) {
   container.appendChild(Note());
   wrapper.appendChild(container);
   //saving eventListener
-  messages.setMessage(messages.howToSave).type("warning");
-  if (!formOpened) {
-    keydownEventListener = (e) => {
-      saveEventListener(e);
-    };
-    document.addEventListener("keydown", keydownEventListener);
-  }
   //for updating keys with the navtitle
-  inputTitle.addEventListener("keyup", (e) => {
-    //check for the title if it is a log message
-    if (isLogTitle(navTitle.textContent)) {
-      navTitle.textContent = "";
-    }
-    messages.type();
-    navTitle.textContent = inputTitle.value;
-  });
   //Buttons event Listenere
   document.querySelector(".close-btn").addEventListener("click", (e) => {
     document.removeEventListener("keydown", keydownEventListener);
     closeButtonClicked(wrapper);
     fillTheNav();
+    formOpened = false;
   });
   //checking methods
   const method = option.option;
+
   if (method == "add") {
+    saved = false;
+    messages.setMessage(messages.howToSave).type("warning");
     document.querySelector(".input-title").focus();
     document.querySelector(".edit-btn").style.display = "none";
-  } else {
+  } else if (method == "view") {
     saved = true;
     updateResults(option);
-
+    navTitle.textContent = inputTitle.value;
     let editBtn = document.querySelector(".edit-btn");
     editBtn.style.display = "true";
     editBtn.addEventListener("click", enableAllInputs);
@@ -76,11 +63,27 @@ export function View(option) {
     disableAllInputs();
   }
 }
+function enableSaving() {
+  if (formOpened) {
+    keydownEventListener = (e) => {
+      saveEventListener(e);
+    };
+    document.addEventListener("keydown", keydownEventListener);
+    inputTitle.addEventListener("keyup", UpdateNavTitleWithInputTitle);
+  }
+}
+function UpdateNavTitleWithInputTitle() {
+  if (isLogTitle(navTitle.textContent)) {
+    navTitle.textContent = "";
+  }
+  messages.type();
+  navTitle.textContent = inputTitle.value;
+}
 function updateResults(option) {
   let key = option.key;
   let content = JSON.parse(localStorage.getItem(key));
   inputTitle.value = content.title;
-  inputDate.setAttribute("value", content.rawDate);
+  inputDate.setAttribute("value", content.date);
   inputNote.textContent = content.note;
 }
 function disableAllInputs() {
@@ -92,6 +95,8 @@ function enableAllInputs() {
   document.querySelector("input").removeAttribute("disabled");
   document.querySelector("textarea").removeAttribute("disabled");
   document.querySelector("#input-date").removeAttribute("disabled");
+  formOpened = true;
+  enableSaving();
 }
 //title
 function title() {
@@ -164,17 +169,17 @@ function saveEventListener(e) {
     if (checkInputs()) {
       e.preventDefault();
       //formatting date
-      let date = format(new Date(inputDate.value), "MMM do yyyy hh:mm a");
       //saving logic
       if (OPTION.option === "view") Storage.removeData(oldTitle);
       let data = new Data(inputTitle.value)
-        .setDate(date, inputDate.value)
+        .setDate(inputDate.value)
         .setNote(inputNote.value)
         .build();
       localStorage.setItem(inputTitle.value, data);
       //updating some values
       saved = true;
       messages.setMessage(messages.saved).type("success");
+      formOpened = false;
     } else {
       messages.setMessage(messages.invalidInput).type("warning");
       e.preventDefault();
