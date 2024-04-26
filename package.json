@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/studious-octo-spoon/",
     "preview": "vite preview",
     "deploy-gh-page": "git subtree push --prefix dist origin gh-pages"
   },
