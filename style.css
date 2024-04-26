@@ -70,7 +70,6 @@ nav {
   transition: 0.5s;
   display: grid;
   grid-template-rows: 1fr 3fr;
-  gap: 10px;
   border-right: solid;
   box-sizing: var(--shadow--grey);
 }
@@ -79,28 +78,42 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   padding: 10px;
   background-color: var(--first-color);
   box-shadow: var(--shadow--grey);
 }
 .side-todo-list-container {
-  background-color: aliceblue;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  padding: 0 2rem;
 }
 .task-lists {
   padding: 0;
-  list-style-type: "# ";
+  list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 3px;
+  padding: 0 10px;
+  text-align: center;
+  height: 100%;
+  list-style-type: " # ";
 }
-.task-lists li {
+.list-item {
   border-radius: 0.3rem;
-  padding: 10px 10px;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  grid-column: 1;
+  text-align: left;
 }
-.task-lists li:hover {
-  background-color: rgb(170, 193, 238);
+
+.item-delete-button {
+  grid-column: 2;
+  padding: 5px 3px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+}
+.item-delete-button:hover {
+  background-color: rgb(174, 200, 255);
 }

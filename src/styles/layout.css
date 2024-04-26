@@ -53,7 +53,24 @@
   gap: 8px;
 }
 /* List Items */
-.list-item-container {
+.side-task-lists {
+  padding: 0 15px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.list-item-container {
+  display: grid;
+  border-radius: 10px;
+  padding-right: 10px;
+  align-self: center;
+  width: 100%;
+  grid-template-columns: minmax(2fr, 70%) 1fr;
+  place-items: center;
+  background-color: rgb(184, 203, 144);
+  padding: 5px 20px;
+}
+.list-item-container:hover {
+  background-color: rgb(226, 207, 246);
+  color: blue;
 }
