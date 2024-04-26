@@ -100,12 +100,12 @@ nav {
   list-style-type: " # ";
 }
 .list-item {
-  border-radius: 0.3rem;
   white-space: nowrap;
-  text-align: center;
   width: 100%;
   grid-column: 1;
   text-align: left;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 }
 
 .item-delete-button {
