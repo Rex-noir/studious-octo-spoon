@@ -15,6 +15,7 @@ let keydownEventListener;
 let OPTION;
 let oldID;
 let uniqueID;
+let editDone = false;
 
 //View
 export function closedState(container) {
@@ -89,11 +90,22 @@ function disableAllInputs() {
   document.querySelector("textarea").disabled = "true";
   document.querySelector("#input-date").setAttribute("disabled", "true");
 }
-function enableAllInputs() {
-  document.querySelector("input").removeAttribute("disabled");
-  document.querySelector("textarea").removeAttribute("disabled");
-  document.querySelector("#input-date").removeAttribute("disabled");
-  enableSaving();
+function enableAllInputs(e) {
+  const btn = e.target;
+  if (!editDone) {
+    btn.textContent = "Done";
+    document.querySelector("input").removeAttribute("disabled");
+    document.querySelector("textarea").removeAttribute("disabled");
+    document.querySelector("#input-date").removeAttribute("disabled");
+    enableSaving();
+    saved = false;
+    editDone = !editDone;
+  } else {
+    btn.textContent = "Edit";
+    disableAllInputs();
+    saved = true;
+    editDone = false;
+  }
 }
 //title
 function title() {
@@ -162,7 +174,7 @@ function closeButtonClicked(container) {
   }
 }
 function saveEventListener(e) {
-  if (e.ctrlKey && e.key === "s") {
+  if (e.ctrlKey && e.key === "s" && !saved) {
     if (checkInputs()) {
       e.preventDefault();
       //formatting date
@@ -177,7 +189,6 @@ function saveEventListener(e) {
       //updating some values
       saved = true;
       messages.setMessage(messages.saved).type("success");
-      document.querySelector(".edit-btn").style.display = "none";
       fillTheNav();
     } else {
       messages.setMessage(messages.invalidInput).type("warning");
