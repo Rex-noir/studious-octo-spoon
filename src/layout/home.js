@@ -47,8 +47,11 @@ export function fillTheNav() {
     DeleteBTN.src = deleteBUTTONIcon;
     DeleteBTN.style.width = "24px";
     DeleteBTN.addEventListener("click", (e) => {
+      e.stopPropagation(); // Stop propagation to container
       deleteItem(data);
       fillTheNav();
+      closeNav();
+      closedState(container);
     });
 
     listItemContainer.appendChild(li);
