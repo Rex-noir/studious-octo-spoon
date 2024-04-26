@@ -20,6 +20,7 @@ let editDone = false;
 //View
 export function closedState(container) {
   container.innerHTML = messages.emptyView;
+  messages.setMessage(messages.emptyViewShort).type();
 }
 export function View(option) {
   const wrapper = option.container;
@@ -40,7 +41,6 @@ export function View(option) {
   //for updating keys with the navtitle
   //Buttons event Listenere
   document.querySelector(".close-btn").addEventListener("click", (e) => {
-    document.removeEventListener("keydown", keydownEventListener);
     closeButtonClicked(wrapper);
   });
   //checking methods
@@ -167,8 +167,13 @@ function Note() {
 function closeButtonClicked(container) {
   if (!saved && checkInputs()) {
     let condition = confirm("Changes will not be saved. Are you sure?");
-    if (condition) closedState(container);
+    if (condition) {
+      document.removeEventListener("keydown", keydownEventListener);
+      closedState(container);
+    } else {
+    }
   } else {
+    saved = false;
     messages.setMessage(messages.emptyViewShort);
     closedState(container);
   }
