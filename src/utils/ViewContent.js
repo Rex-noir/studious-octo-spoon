@@ -64,13 +64,11 @@ export function View(option) {
   }
 }
 function enableSaving() {
-  if (formOpened) {
-    keydownEventListener = (e) => {
-      saveEventListener(e);
-    };
-    document.addEventListener("keydown", keydownEventListener);
-    inputTitle.addEventListener("keyup", UpdateNavTitleWithInputTitle);
-  }
+  keydownEventListener = (e) => {
+    saveEventListener(e);
+  };
+  document.addEventListener("keydown", keydownEventListener);
+  inputTitle.addEventListener("keyup", UpdateNavTitleWithInputTitle);
 }
 function UpdateNavTitleWithInputTitle() {
   if (isLogTitle(navTitle.textContent)) {
