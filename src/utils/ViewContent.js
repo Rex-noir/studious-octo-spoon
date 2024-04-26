@@ -184,6 +184,9 @@ function keyBoardListener(e) {
   if (e.ctrlKey && e.key === "s" && !saved) {
     saveNow(e);
   }
+  if (e.key === "Escape") {
+    closeButtonClicked(OPTION.container);
+  }
 }
 function saveNow(e) {
   if (checkInputs()) {
