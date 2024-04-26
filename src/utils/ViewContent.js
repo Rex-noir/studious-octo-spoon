@@ -50,8 +50,9 @@ export function View(option) {
     saved = false;
     messages.setMessage(messages.howToSave).type("warning");
     document.querySelector(".input-title").focus();
-    document.querySelector(".edit-btn").style.display = "none";
     uniqueID = uuidv4();
+    document.querySelector(".edit-btn").textContent = "Save";
+    document.querySelector(".edit-btn").addEventListener("click", saveNow);
   } else if (method == "view") {
     saved = true;
     updateResults(option);
@@ -66,7 +67,7 @@ export function View(option) {
 }
 function enableSaving() {
   keydownEventListener = (e) => {
-    saveEventListener(e);
+    keyBoardListener(e);
   };
   document.addEventListener("keydown", keydownEventListener);
   inputTitle.addEventListener("keyup", UpdateNavTitleWithInputTitle);
@@ -100,6 +101,7 @@ function enableAllInputs(e) {
     enableSaving();
     saved = false;
     editDone = !editDone;
+    if (OPTION.option == "add") keyBoardListener();
   } else {
     btn.textContent = "Edit";
     disableAllInputs();
@@ -178,28 +180,31 @@ function closeButtonClicked(container) {
     closedState(container);
   }
 }
-function saveEventListener(e) {
+function keyBoardListener(e) {
   if (e.ctrlKey && e.key === "s" && !saved) {
-    if (checkInputs()) {
-      e.preventDefault();
-      //formatting date
-      //saving logic
-      if (OPTION.option === "view") Storage.removeData(oldID);
-      let data = new Data(uniqueID)
-        .setTitle(inputTitle.value)
-        .setDate(inputDate.value)
-        .setNote(inputNote.value)
-        .build();
-      localStorage.setItem(uniqueID, data);
-      //updating some values
-      saved = true;
-      messages.setMessage(messages.saved).type("success");
-      fillTheNav();
-    } else {
-      messages.setMessage(messages.invalidInput).type("warning");
-      e.preventDefault();
-      saved = false;
-    }
+    saveNow(e);
+  }
+}
+function saveNow(e) {
+  if (checkInputs()) {
+    e.preventDefault();
+    //formatting date
+    //saving logic
+    if (OPTION.option === "view") Storage.removeData(oldID);
+    let data = new Data(uniqueID)
+      .setTitle(inputTitle.value)
+      .setDate(inputDate.value)
+      .setNote(inputNote.value)
+      .build();
+    localStorage.setItem(uniqueID, data);
+    //updating some values
+    saved = true;
+    messages.setMessage(messages.saved).type("success");
+    fillTheNav();
+  } else {
+    messages.setMessage(messages.invalidInput).type("warning");
+    e.preventDefault();
+    saved = false;
   }
 }
 function checkInputs() {
