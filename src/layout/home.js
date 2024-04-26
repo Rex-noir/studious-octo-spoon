@@ -38,7 +38,7 @@ export function fillTheNav() {
     let data = JSON.parse(localStorage.getItem(key));
     let title = data.title;
     li.textContent = title;
-    li.addEventListener("click", (e) => {
+    listItemContainer.addEventListener("click", (e) => {
       closeNav();
       new View({ option: "view", container: container, key: key });
     });
