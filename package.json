@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy-gh-page": "git subtree push --prefix dist origin gh-pages"
   },
   "devDependencies": {
-    "vite": "^5.2.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "vite": "^5.2.10"
   },
   "dependencies": {
     "date-fns": "^3.6.0",
