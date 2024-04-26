@@ -3,6 +3,7 @@ import { createElement } from "./DOM-manipulator";
 import { Data, Storage } from "./Data Manger";
 import { Log } from "./LogMessages";
 import "/src/styles/components.css";
+import { v4 as uuidv4 } from "uuid";
 
 let saved = false;
 let formOpened = true;
@@ -13,7 +14,8 @@ let navTitle = document.querySelector("#nav-title");
 let messages = new Log(navTitle);
 let keydownEventListener;
 let OPTION;
-let oldTitle;
+let oldID;
+let uniqueID;
 
 //View
 export function closedState(container) {
@@ -40,7 +42,6 @@ export function View(option) {
   document.querySelector(".close-btn").addEventListener("click", (e) => {
     document.removeEventListener("keydown", keydownEventListener);
     closeButtonClicked(wrapper);
-    fillTheNav();
     formOpened = false;
   });
   //checking methods
@@ -51,6 +52,7 @@ export function View(option) {
     messages.setMessage(messages.howToSave).type("warning");
     document.querySelector(".input-title").focus();
     document.querySelector(".edit-btn").style.display = "none";
+    uniqueID = uuidv4();
   } else if (method == "view") {
     saved = true;
     updateResults(option);
@@ -59,7 +61,7 @@ export function View(option) {
     editBtn.style.display = "true";
     editBtn.addEventListener("click", enableAllInputs);
 
-    oldTitle = inputTitle.value;
+    oldID = JSON.parse(localStorage.getItem(option.key)).id;
     disableAllInputs();
   }
 }
@@ -168,16 +170,19 @@ function saveEventListener(e) {
       e.preventDefault();
       //formatting date
       //saving logic
-      if (OPTION.option === "view") Storage.removeData(oldTitle);
-      let data = new Data(inputTitle.value)
+      if (OPTION.option === "view") Storage.removeData(oldID);
+      let data = new Data(uniqueID)
+        .setTitle(inputTitle.value)
         .setDate(inputDate.value)
         .setNote(inputNote.value)
         .build();
-      localStorage.setItem(inputTitle.value, data);
+      localStorage.setItem(uniqueID, data);
       //updating some values
       saved = true;
       messages.setMessage(messages.saved).type("success");
       formOpened = false;
+      document.querySelector(".edit-btn").style.display = "none";
+      fillTheNav();
     } else {
       messages.setMessage(messages.invalidInput).type("warning");
       e.preventDefault();

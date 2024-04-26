@@ -1,8 +1,10 @@
 export class Data {
-  constructor(title) {
+  constructor(id) {
+    this.id = id;
+  }
+  setTitle(title) {
     this.title = title;
-    this.id = title.slice(0, 2);
-    this.watermark = "json";
+    return this;
   }
   setDate(date) {
     this.date = date;

@@ -35,8 +35,9 @@ export function fillTheNav() {
   for (const key of keys) {
     const listItemContainer = createElement("div", ["list-item-container"]);
     const li = createElement("li", ["list-item"]);
-
-    li.textContent = key;
+    let data = JSON.parse(localStorage.getItem(key));
+    let title = data.title;
+    li.textContent = title;
     li.addEventListener("click", (e) => {
       closeNav();
       new View({ option: "view", container: container, key: key });
@@ -46,7 +47,7 @@ export function fillTheNav() {
     DeleteBTN.src = deleteBUTTONIcon;
     DeleteBTN.style.width = "24px";
     DeleteBTN.addEventListener("click", (e) => {
-      deleteItem(li.textContent);
+      deleteItem(data);
       fillTheNav();
     });
 
@@ -55,6 +56,6 @@ export function fillTheNav() {
     taskLists.appendChild(listItemContainer);
   }
 }
-function deleteItem(key) {
-  Storage.removeData(key);
+function deleteItem(data) {
+  Storage.removeData(data.id);
 }
